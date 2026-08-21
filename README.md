@@ -45,4 +45,4 @@ Proposed research direction, early implementation. This document will be updated
 
 ---
 
-*Contact: [asherpranay@gmail.com/LinkedIn: https://www.linkedin.com/in/asherpranay/]*
+*Contact:[asherpranay@gmail.com/LinkedIn: https://www.linkedin.com/in/asherpranay/]*
