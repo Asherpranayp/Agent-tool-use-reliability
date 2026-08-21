@@ -95,3 +95,32 @@ class ToolRegistry:
         self.call_log = []
         if failure_rate is not None:
             self.failure_rate = failure_rate
+
+    # ---- generic dispatcher + guardrail support ------------------------------
+
+    def call(self, tool_name: str, **arguments) -> Dict[str, Any]:
+        """
+        Dispatch by tool name so guardrail strategies can wrap any tool call
+        uniformly without knowing individual method signatures.
+        """
+        method = getattr(self, tool_name, None)
+        if method is None:
+            result = {"error": "unknown_tool", "tool": tool_name}
+            self._log(tool_name, arguments, result, failed=True)
+            return result
+        return method(**arguments)
+
+    def record_blocked_call(self, tool_name: str, arguments: Dict[str, Any],
+                              reason: str) -> Dict[str, Any]:
+        """
+        Log a call a guardrail prevented from ever reaching the backend
+        (circuit open, out-of-scope, etc.), so the benchmark can distinguish
+        "guardrail prevented this" from "agent never attempted this."
+        """
+        result = {"error": reason, "tool": tool_name, "guardrail_blocked": True}
+        self._log(tool_name, arguments, result, failed=True)
+        return result
+
+    # ---- generic dispatcher, used by the guardrail layer --------------------
+
+
