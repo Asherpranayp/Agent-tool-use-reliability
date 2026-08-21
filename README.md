@@ -1,5 +1,5 @@
 **Asher Pranay Palle**
-PhD Candidate, Artificial Intelligence — Southwest Baptist University | AI Data Engineer, Cardinality AI
+PhD Candidate, Artificial Intelligence — Southwest Baptist University 
 
 ## Abstract
 
